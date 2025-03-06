@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", loadTasks);
+document.addEventListener("DOMContentLoaded", () => {
+  loadTasks();
+  setDarkMode();
+});
 const taskInput = document.getElementById("taskInput");
 const addTaskButton = document.getElementById("addTaskButton");
 const taskList = document.getElementById("taskList");
@@ -66,5 +69,21 @@ function loadTasks() {
     const li = createTaskElement(task.text);
     if (task.completed) li.classList.add("completed");
     taskList.appendChild(li);
+  });
+}
+function setDarkMode() {
+  const darkMode = document.getElementById("DarkMode");
+  if (localStorage.getItem("darkmode") === "true") {
+    document.body.classList.add("darkmode");
+    darkMode.textContent = "Light Mode";
+  } else {
+    document.text = "Dark Mode";
+  }
+  darkMode.addEventListener("click", () => {
+    document.body.classList.toggle("darkmode");
+
+    const isDarkMode = document.body.classList.contains("darkmode");
+    localStorage.setItem("darkmode", isDarkMode);
+    darkMode.textContent = isDarkMode ? "Light Mode" : "DarkMode";
   });
 }
